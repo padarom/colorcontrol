@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 
 import './assets/styl/layout.styl'
+import '@fortawesome/fontawesome-pro/js/all.js'
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios

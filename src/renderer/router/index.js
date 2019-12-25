@@ -11,6 +11,11 @@ export default new Router({
       component: require('@/components/LandingPage').default,
     },
     {
+      path: '/screensync',
+      name: 'screensync-configuration',
+      component: require('@/components/ScreenSync').default,
+    },
+    {
       path: '*',
       redirect: '/',
     },
