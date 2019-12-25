@@ -9,7 +9,3 @@
     name: 'color-control',
   }
 </script>
-
-<style>
-  /* CSS */
-</style>

@@ -30,6 +30,10 @@ let webConfig = {
         }
       },
       {
+        test: /\.styl(us)?$/,
+        use: ['vue-style-loader', 'css-loader', 'stylus-loader']
+      },
+      {
         test: /\.scss$/,
         use: ['vue-style-loader', 'css-loader', 'sass-loader']
       },
@@ -64,7 +68,8 @@ let webConfig = {
             loaders: {
               sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax=1',
               scss: 'vue-style-loader!css-loader!sass-loader',
-              less: 'vue-style-loader!css-loader!less-loader'
+              less: 'vue-style-loader!css-loader!less-loader',
+              stylus: 'vue-style-loader!css-loader!stylus-loader?data=@import "./src/renderer/assets/styl/globals";',
             }
           }
         }
@@ -108,7 +113,14 @@ let webConfig = {
       'process.env.IS_WEB': 'true'
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        stylus: {
+          import: [path.resolve(__dirname, '../src/renderer/assets/styl/globals.styl')]
+        }
+      }
+    }),
   ],
   output: {
     filename: '[name].js',
