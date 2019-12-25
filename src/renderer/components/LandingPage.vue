@@ -24,7 +24,8 @@
 
     methods: {
       open () {
-        remote.BrowserWindow.getFocusedWindow().minimize()
+        let main = remote.BrowserWindow.getFocusedWindow()
+        main.minimize()
 
         let win = new remote.BrowserWindow({
           width: 500,
@@ -42,7 +43,10 @@
           },
         })
 
-        win.on('blur', () => win.close())
+        win.on('blur', () => {
+          win.close()
+          main.show()
+        })
 
         win.show()
         win.loadURL(remote.getGlobal('winURL') + '#screensync')

@@ -3,9 +3,15 @@
     <div class="draggable" />
     <main>
       <div class="position">
-        {{ position[0] }} x {{ position[1] }}
+        <i class="fad fa-arrow-to-left" />
+        {{ position[0] }}
+      </div>
+      <div class="position">
+        <i class="fad fa-arrow-to-top" />
+        {{ position[1] }}
       </div>
       <div class="size">
+        <i class="fad fa-retweet-alt" />
         {{ size[0] }} x {{ size[1] }}
       </div>
     </main>
@@ -30,7 +36,7 @@
       let onUpdate = debounce(() => {
         this.position = currentWindow.getPosition()
         this.size = currentWindow.getSize()
-      }, 20, {
+      }, 5, {
         leading: true,
         trailing: true,
       })
