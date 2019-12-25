@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'color-control'
+    name: 'color-control',
   }
 </script>
 
