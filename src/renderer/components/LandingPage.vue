@@ -10,20 +10,7 @@
       </div>
 
       <div class="right-side">
-        <div class="doc">
-          <div class="title">Getting Started</div>
-          <p>
-            electron-vue comes packed with detailed documentation that covers everything from
-            internal configurations, using the project structure, building your application,
-            and so much more.
-          </p>
-          <button @click="open('https://simulatedgreg.gitbooks.io/electron-vue/content/')">Read the Docs</button><br><br>
-        </div>
-        <div class="doc">
-          <div class="title alt">Other Documentation</div>
-          <button class="alt" @click="open('https://electron.atom.io/docs/')">Electron</button>
-          <button class="alt" @click="open('https://vuejs.org/v2/guide/')">Vue.js</button>
-        </div>
+        <video :src-object.prop.camel="source" autoplay />
       </div>
     </main>
   </div>
@@ -31,14 +18,47 @@
 
 <script>
   import SystemInformation from './LandingPage/SystemInformation'
+  import { desktopCapturer } from 'electron'
 
   export default {
     name: 'landing-page',
-    components: { SystemInformation, },
+
+    components: { SystemInformation },
+
+    data () {
+      return {
+        source: null,
+      }
+    },
+
     methods: {
       open (link) {
         this.$electron.shell.openExternal(link)
       },
+    },
+
+    async created () {
+      let sources = await desktopCapturer.getSources({ types: ['screen'] })
+
+      for (const source of sources) {
+        if (source.id !== 'screen:0:0') continue
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: false,
+          video: {
+            mandatory: {
+              chromeMediaSource: 'desktop',
+              chromeMediaSourceId: source.id,
+              minWidth: 1280,
+              maxWidth: 1280,
+              minHeight: 720,
+              maxHeight: 720,
+            },
+          },
+        })
+
+        this.source = stream
+      }
     },
   }
 </script>

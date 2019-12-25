@@ -20,8 +20,8 @@ module.exports = {
     'generator-star-spacing': 0,
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'comma-dangle': ['warn', {
-        "arrays": "always",
-        "objects": "always",
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
         "imports": "never",
         "exports": "never",
         "functions": "never"
