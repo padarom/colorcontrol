@@ -92,15 +92,17 @@
         focused.setOpacity(0)
         await wait(10)
 
-        let bitmap = await this.imageCapture.grabFrame()
+        try {
+          let bitmap = await this.imageCapture.grabFrame()
 
-        let canvas = this.$refs.canvas
-        let context = canvas.getContext('2d')
-        canvas.width = this.size[0]
-        canvas.height = this.size[1]
-        context.clearRect(0, 0, canvas.width, canvas.height)
-        context.drawImage(bitmap, ...frame, 0, 0, ...this.size)
-        bitmap.close()
+          let canvas = this.$refs.canvas
+          let context = canvas.getContext('2d')
+          canvas.width = this.size[0]
+          canvas.height = this.size[1]
+          context.clearRect(0, 0, canvas.width, canvas.height)
+          context.drawImage(bitmap, ...frame, 0, 0, ...this.size)
+          bitmap.close()
+        } catch (e) {}
 
         await wait(10)
         focused.setOpacity(1)
